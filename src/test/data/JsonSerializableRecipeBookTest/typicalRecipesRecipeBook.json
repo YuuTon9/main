@@ -38,5 +38,10 @@
     "time" : "60",
     "step" : "anna@example.com",
     "goals" : [ "Bulk like the Hulk", "Wholesome Wholemeal" ]
-  } ]
+  } , {
+    "name" : "Chinese Tomato Egg Stir-fry",
+    "time" : "10",
+    "step" : "",
+    "goals" : [ "Herbivore" ]
+  }]
 }
