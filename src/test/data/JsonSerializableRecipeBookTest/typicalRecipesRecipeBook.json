@@ -206,7 +206,7 @@
     "isFavourite" : false,
     "ingredients" : ["chicken breasts (large, cooked), 2, protein",
       "greek yogurt (non-fat), 368 grams, protein",
-      'mayonnaise, 59 ml, others",
+      "mayonnaise, 59 ml, others",
       "garlic salt, 1 tbsp, others",
       "Dijon mustard (whole grain dijon), 1 tbsp, others",
       "mixed nuts (chopped), 34 grams, proteins",
@@ -256,7 +256,7 @@
       "pepitas (with or without sesame seeds), 1, vegetables",
       "ripe peach (thinly sliced), 1/4, fruits",
       "cashew or peanut butter, 3 tbsp, protein",
-      "white miso paste, 1/2 tbsp, others"<
+      "white miso paste, 1/2 tbsp, others",
       "lime juice, 1/2 tbsp, fruits",
       "sesame oil, 1/4 tbsp, others",
       "grated ginger, 1/4 tbsp, vegetables",
@@ -271,7 +271,7 @@
     "name" : "Avocado Couscous Grapefruit salad with honey lime dressing",
     "time" : "35",
     "isFavourite" : false,
-    "ingredients" : ["low sodium chicken stock, 3/4 cups, protein"
+    "ingredients" : ["low sodium chicken stock, 3/4 cups, protein",
       "uncooked whole wheat couscous, 3/4 cups, grain",
       "large avocados, 2, fruits",
       "large ruby red grapefruit, 2, fruits",
