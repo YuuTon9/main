@@ -26,10 +26,13 @@ public class JsonAdaptedRecipeTest {
     private static final List<JsonAdaptedIngredient> VALID_INGREDIENTS = GRILLED_SANDWICH.getIngredients().stream()
             .map(JsonAdaptedIngredient::new)
             .collect(Collectors.toList());
-    private static final String VALID_STEP = GRILLED_SANDWICH.getStep().toString();
+    private static final List<JsonAdaptedStep> VALID_STEP = GRILLED_SANDWICH.getSteps().stream()
+            .map(JsonAdaptedStep::new).collect(Collectors.toList());
     private static final List<JsonAdaptedGoal> VALID_GOALS = GRILLED_SANDWICH.getGoals().stream()
             .map(JsonAdaptedGoal::new)
             .collect(Collectors.toList());
+    private static final List<JsonAdaptedStep> INVALID_STEPS = new ArrayList<>(VALID_STEP);
+    private static final List<JsonAdaptedGoal> INVALID_GOALS = new ArrayList<>(VALID_GOALS);
 
     @Test
     public void toModelType_validRecipeDetails_returnsRecipe() throws Exception {
@@ -69,8 +72,9 @@ public class JsonAdaptedRecipeTest {
 
     @Test
     public void toModelType_invalidStep_throwsIllegalValueException() {
+        INVALID_STEPS.add(new JsonAdaptedStep(INVALID_STEP));
         JsonAdaptedRecipe recipe =
-                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, VALID_INGREDIENTS, INVALID_STEP, VALID_GOALS);
+                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, VALID_INGREDIENTS, INVALID_STEPS, VALID_GOALS);
         String expectedMessage = Step.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
@@ -84,10 +88,9 @@ public class JsonAdaptedRecipeTest {
 
     @Test
     public void toModelType_invalidGoals_throwsIllegalValueException() {
-        List<JsonAdaptedGoal> invalidGoals = new ArrayList<>(VALID_GOALS);
-        invalidGoals.add(new JsonAdaptedGoal(INVALID_GOAL));
+        INVALID_GOALS.add(new JsonAdaptedGoal(INVALID_GOAL));
         JsonAdaptedRecipe recipe =
-                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, VALID_INGREDIENTS, VALID_STEP, invalidGoals);
+                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, VALID_INGREDIENTS, VALID_STEP, INVALID_GOALS);
         assertThrows(IllegalValueException.class, recipe::toModelType);
     }
 

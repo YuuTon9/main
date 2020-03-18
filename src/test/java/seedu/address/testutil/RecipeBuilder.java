@@ -1,15 +1,20 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.address.model.goal.Goal;
-import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.ingredient.Vegetable;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
+
+import seedu.address.model.recipe.ingredient.Ingredient;
+import seedu.address.model.recipe.ingredient.Vegetable;
+
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -17,23 +22,24 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class RecipeBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_TIME = "85355255";
-    public static final String DEFAULT_STEP = "alice@gmail.com";
+    public static final String DEFAULT_NAME = "Egg Tomato Stir Fry";
+    public static final String DEFAULT_TIME = "10";
+    public static final Step DEFAULT_STEP = new Step("Cut tomatoes into crescent shaped slices");
     public static final Ingredient DEFAULT_INGREDIENT = new Vegetable("Tomato", 100);
 
     private Name name;
     private Time time;
     private Set<Ingredient> ingredients;
-    private Step step;
+    private List<Step> steps;
     private Set<Goal> goals;
 
     public RecipeBuilder() {
         name = new Name(DEFAULT_NAME);
         time = new Time(DEFAULT_TIME);
-        ingredients = new HashSet<>();
+        ingredients = new TreeSet<>();
         ingredients.add(DEFAULT_INGREDIENT);
-        step = new Step(DEFAULT_STEP);
+        steps = new ArrayList<>();
+        steps.add(DEFAULT_STEP);
         goals = new HashSet<>();
     }
 
@@ -44,7 +50,7 @@ public class RecipeBuilder {
         name = recipeToCopy.getName();
         time = recipeToCopy.getTime();
         ingredients = recipeToCopy.getIngredients();
-        step = recipeToCopy.getStep();
+        steps = recipeToCopy.getSteps();
         goals = new HashSet<>(recipeToCopy.getGoals());
     }
 
@@ -75,8 +81,8 @@ public class RecipeBuilder {
     /**
      * Sets the {@code Step} of the {@code Recipe} that we are building.
      */
-    public RecipeBuilder withStep(String step) {
-        this.step = new Step(step);
+    public RecipeBuilder withSteps(String ... steps) {
+        this.steps = SampleDataUtil.getStepsList(steps);
         return this;
     }
 
@@ -89,7 +95,7 @@ public class RecipeBuilder {
     }
 
     public Recipe build() {
-        return new Recipe(name, time, ingredients, step, goals);
+        return new Recipe(name, time, ingredients, steps, goals);
     }
 
 }

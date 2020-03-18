@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -11,11 +12,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
+
+import seedu.address.model.recipe.ingredient.Ingredient;
 
 /**
  * Jackson-friendly version of {@link Recipe}.
@@ -26,7 +28,7 @@ class JsonAdaptedRecipe {
 
     private final String name;
     private final String time;
-    private final String step;
+    private final List<JsonAdaptedStep> steps = new ArrayList<>();
     private final List<JsonAdaptedGoal> goals = new ArrayList<>();
     private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
 
@@ -36,14 +38,16 @@ class JsonAdaptedRecipe {
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("time") String time,
             @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients,
-            @JsonProperty("step") String step,
+            @JsonProperty("steps") List<JsonAdaptedStep> steps,
             @JsonProperty("goals") List<JsonAdaptedGoal> goals) {
         this.name = name;
         this.time = time;
         if (ingredients != null) {
             this.ingredients.addAll(ingredients);
         }
-        this.step = step;
+        if (steps != null) {
+            this.steps.addAll(steps);
+        }
         if (goals != null) {
             this.goals.addAll(goals);
         }
@@ -58,7 +62,8 @@ class JsonAdaptedRecipe {
         ingredients.addAll(source.getIngredients().stream()
                 .map(JsonAdaptedIngredient::new)
                 .collect(Collectors.toList()));
-        step = source.getStep().value;
+        steps.addAll(source.getSteps().stream()
+                .map(JsonAdaptedStep::new).collect(Collectors.toList()));
         goals.addAll(source.getGoals().stream()
                 .map(JsonAdaptedGoal::new)
                 .collect(Collectors.toList()));
@@ -80,6 +85,14 @@ class JsonAdaptedRecipe {
             recipeIngredients.add(ingredient.toModelType());
         }
 
+        final List<Step> recipeSteps = new ArrayList<>();
+        if (steps.isEmpty()) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Step.class.getSimpleName()));
+        }
+        for (JsonAdaptedStep step : steps) {
+            recipeSteps.add(step.toModelType());
+        }
+
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -96,17 +109,10 @@ class JsonAdaptedRecipe {
         }
         final Time modelTime = new Time(time);
 
-        if (step == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Step.class.getSimpleName()));
-        }
-        if (!Step.isValidStep(step)) {
-            throw new IllegalValueException(Step.MESSAGE_CONSTRAINTS);
-        }
-        final Step modelStep = new Step(step);
-
         final Set<Goal> modelGoals = new HashSet<>(recipeGoals);
-        final Set<Ingredient> modelIngredients = new HashSet<>(recipeIngredients);
-        return new Recipe(modelName, modelTime, modelIngredients, modelStep, modelGoals);
+        final Set<Ingredient> modelIngredients = new TreeSet<>(recipeIngredients);
+        final ArrayList<Step> modelSteps = new ArrayList<>(recipeSteps);
+        return new Recipe(modelName, modelTime, modelIngredients, modelSteps, modelGoals);
     }
 
 }
