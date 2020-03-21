@@ -23,17 +23,40 @@ import seedu.address.model.recipe.Recipe;
  */
 public class TypicalRecipes {
 
-    public static final Recipe CAESAR_SALAD = new RecipeBuilder().withName("Caesar Salad")
-            .withTime("10")
-            .withIngredients("Tomato, 100, vegetable", "Honeydew, 100, other")
-            .withSteps("Cut tomatoes", "Remove honeydew skin")
+    public static final Recipe CAESAR_SALAD = new RecipeBuilder().withName("Vegan Thai Green Curry Soup")
+            .withTime("35")
+            .withIngredients("button mushrooms sliced, 4-5, vegetables",
+                    "broccoli florets, 1 cup, vegetables",
+                    "thai Green Curry Paste, 1 tbsp, others",
+                    "coconut milk, 1/4 cup, others",
+                    "vegetable stock, 4 Cups, vegetables",
+                    "rice vermicelli noodles, 1, carbs",
+                    "oil, 2 teaspoon, others",
+                    "Salt, 1 tsp, others",
+                    "Thai red eye bird's chili, 2, vegetables",
+                    "soy sauce, 1 teaspoon, others",
+                    "brown sugar, 1/2 teaspoon, others")
+            .withSteps("Heat oil in a saucepan. Add the vegetables (broccoli, mushroom) and saute till they turn soft. Transfer to a plate and set aside.",
+                    "In the same saucepan, add the green curry paste. Saute the curry paste for a minute.",
+                    "Add the coconut milk, brown sugar and soy sauce. Stir until the curry paste is nicely dissolved.",
+                    "Now add the vegetable stock, salt, red chillies and stir to combine.",
+                    "Bring the soup to a boil over high heat. Reduce the heat and allow the soup to simmer for 5 minutes.",
+                    "Add the vermicelli noodles and the vegetables. Simmer till the noodles are cooked.",
+                    "Turn off the heat and give soup a nice stir. Taste and adjust the seasoning and consistency accordingly. If too thick add more stock or coconut milk.",
+                    "Just before serving garnish soup with fresh herbs, crushed peanuts and juice of lemon.",
+                    "Serve Thai Green Curry Soup warm.")
             .withGoals("Herbivore").build();
 
-    public static final Recipe GRILLED_SANDWICH = new RecipeBuilder().withName("Grilled Sandwich")
-            .withTime("10")
-            .withIngredients("Bread, 50, grain", "Cheese, 50, other")
-            .withSteps("Spread butter on bread", "Heat pan to medium heat")
-            .withGoals("Wholesome Wholemeal").build();
+    public static final Recipe GRILLED_SANDWICH = new RecipeBuilder().withName("Thai Basil Ground Beef Bowl")
+            .withTime("25")
+            .withIngredients("95% lean ground beef, 1.33 lb, protein","garlic cloves (minced), 2, vegetables","garlic clove, 1, vegetables",
+                    "fresh ginger (minced), 1 tbsp, protein","asparagus (chopped), 2 cups, vegetables")
+            .withSteps("Prepare the cauliflower rice. Chop the cauliflower into florets and add to a food processor with the onion and garlic. Pulse into fine rice like pieces. You may have to do this in batches depending on your food processor. To cook, saute the cauliflower rice in 1 tbsp. coconut oil over medium heat until soft. You can also microwave it for 4-5 minutes.",
+                    "Add the beef to a hot nonstick skillet over medium high heat. Brown and break up the larger chunks as you go until no longer pink.",
+                    "Add in the garlic, ginger, green onions, and asparagus. Cook until the asparagus is just tender, about 3-4 minutes.",
+                    "Add the soy sauce, chili paste, and basil. Cook for 30 seconds and remove from heat. Taste and season as needed with additional soy or chili sauce.",
+                    "Serve the Thai Basil Beef over the cauliflower rice.")
+            .withGoals("Bulk like the Hulk").build();
 
     public static final Recipe BOILED_CHICKEN = new RecipeBuilder().withName("Boiled Chicken")
             .withTime("10")

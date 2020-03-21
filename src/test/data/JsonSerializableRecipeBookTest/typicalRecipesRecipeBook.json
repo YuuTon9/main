@@ -1,4 +1,4 @@
-{
+{//units: g, ml, cup, tbsp,tsp,whole(no input)
   "_comment": "RecipeBook save file which contains the same Recipe values as in TypicalRecipes#getTypicalAddressBook()",
   "recipes" : [ {
     "name" : "Vegan Thai Green Curry Soup",
@@ -9,7 +9,7 @@
       "thai Green Curry Paste, 1 tbsp, others",
       "coconut milk, 1/4 cup, others",
       "vegetable stock, 4 Cups, vegetables",
-      "rice vermicelli noodles, 1, carbs",
+      "rice vermicelli noodles, 1, grains",
       "oil, 2 teaspoon, others",
       "Salt, 1 tsp, others",
       "Thai red eye bird's chili, 2, vegetables",
@@ -40,7 +40,7 @@
       "chilli paste, 2 tsp, others",
       "Thai basil, 1/4 cup, vegetable",
       "cauliflower, 1, vegetable",
-      "onion, 1/4 cup, veegetables",
+      "onion, 1/4 cup, vegetables",
       "coconut oil (or olive oil), 1 tbsp, others"
     ],
     "steps" : ["Prepare the cauliflower rice. Chop the cauliflower into florets and add to a food processor with the onion and garlic. Pulse into fine rice like pieces. You may have to do this in batches depending on your food processor. To cook, saute the cauliflower rice in 1 tbsp. coconut oil over medium heat until soft. You can also microwave it for 4-5 minutes.",
@@ -59,7 +59,7 @@
       "1hulled barley, 1 cup, others",
       "low-sodium chicken broth, 2.5 cups, protein",
       "Salt & Pepper, 1, others",
-      "small pieces of broken spaghetti, ½ cup, carbs",
+      "small pieces of broken spaghetti, ½ cup, grain",
       "chives (chopped), 2 tbsp, vegetables"],
     "steps" : ["Melt butter in saucepan over medium heat. Add onion and cook until soft and light golden brown.",
       "Add barley and stir until grains are coated in butter.",
@@ -69,7 +69,7 @@
       "Once most liquid is absorbed and barley and spaghetti are tender, remove from hit and let sit.",
       "Season to taste with salt and pepper and sprinkle with chopped chives."
     ],
-    "goals" : [ "Wholesome wholemeals" ]
+    "goals" : [ "Wholesome Wholemeal" ]
   }, {
     "name" : "Asian BBQ Chicken",
     "time" : "30",
@@ -154,7 +154,7 @@
     "name" : "5 Ingredient Spelt Spaghetti",
     "time" : "25",
     "isFavourite" : false,
-    "ingredients" : ["Spelt Spaghetti, 80g, carbs",
+    "ingredients" : ["Spelt Spaghetti, 80g, grain",
       "Arugula (Salad Rockets), 2 cups, vegetable",
       "Tomatoes, 300g, vegetables",
       "Zucchini, 300g , vegetable",
@@ -199,7 +199,7 @@
       "Mix in the spinach and stir until tender",
       "Sprinkle with Parmesan before serving."
     ],
-    "goals" : ["Wholesome Wholemeals"]
+    "goals" : ["Wholesome Wholemeal"]
   }, {
     "name" : "Healthy Chicken Salad Sandwich",
     "time" : "10",
@@ -289,7 +289,7 @@
       "In a small bowl or large measuring cup, whisk together the dressing ingredients: lime juice, honey, olive oil, and salt, or shake all of the ingredients together in a mason jar with a tight-fitting lid.",
       "In a large bowl, combine beans and couscous. Pour dressing over top and stir to combine. Add the avocados, grapefruit, feta, mint, and cilantro. Toss gently. Serve chilled or at room temperature."
     ],
-    "goals" : ["Wholesome wholemeals"]
+    "goals" : ["Wholesome Wholemeal"]
   }, {
     "name" : "Teriyaki chicken noodle bowl",
     "time" : "35",
@@ -326,7 +326,7 @@
     ],
     "steps" : ["In a slow cooker, combine all ingredients and set to low heat. Cover and let cook for 8 to 9 hours.",
       "Stir and remove to serving bowls. This method works best if started before you go to bed."],
-    "goals" : ["Wholesome Wholemeals\n"]
+    "goals" : ["Wholesome Wholemeal"]
   }]
 }
 
