@@ -35,7 +35,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/recipe/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/recipe/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -78,11 +78,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/recipe/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RecipeListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/recipe/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -97,9 +97,9 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/recipe/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `RecipeBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a recipe).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -118,17 +118,17 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/recipe/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Recipe Book data.
 * exposes an unmodifiable `ObservableList<Recipe>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Recipe` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Recipe` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Recipe Book`, which `Recipe` can reference. This would allow `Recipe Book` to only require one `Tag` object per unique `Tag`, instead of each `Recipe` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -138,110 +138,218 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/recipe/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Recipe Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.recipe.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+// tag::basic[]
+=== Basic commands
+
+==== Help command
+
+
+==== Switch command
+
+image::SwitchActivityDiagram.png[]
+
+==== List command
+
+
+==== Find command
+
+
+==== Add command
+
+
+==== Edit command
+
+
+==== Delete command
+
+
+==== Favourite and Unfavourite commands
+
+
+==== Undo and Redo commands
+Description: TODO
+
+===== Implementation
+This section explains how the undo and redo commands are implemented.
+
+1. TODO
+
+The following sequence diagram shows what happens when the user calls an undo operation:
+
+.Undo command sequence diagram
+image::UndoRedoSequenceDiagram.png[]
+
+Result: TODO
+
+===== Design Considerations
+====== Aspect: How undo and redo executes
+Challenges faced: TODO
+
+* **Alternative 1 (current choice):** Saves the entire recipe book.
+** Pros: Easy to implement.
+** Cons: May use up a lot of memory space within a single session 1) if there is a large volume of recipe book commits
+and/or 2) if the magnitude of a single commit is large (ie. the database is huge, containing many recipes).
+
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory.
+** Cons: Tedious to ensure the correctness of the implementation of each individual command.
+
+==== Clear command
+
+
+==== Exit command
+
+
+// end::basic[]
+
+// tag::recipecustomisation[]
+=== Recipe customisation commands
+==== Add ingredient command
+
+
+==== Edit ingredient command
+
+
+==== Delete ingredient command
+
+
+==== Add step command
+
+
+==== Edit step command
+
+
+==== Delete step command
+
+// end::recipecustomisation[]
+
+
+// tag::advancedfilter[]
+=== Filter command
+The advanced filter feature uses the `filter` command to search for recipes according to the set of keywords provided
+by the user. Think of it as a greatly enhanced and more robust version of the `find` command, which only allows the
+user to find recipes by their name.
+
+==== Implementation
+This section explains how the filter command is implemented.
+
+1. User specified keywords are directed to the `FilterCommandParser` where `ArgumentTokenizer` and `ArgumentMultimap`
+are used to parse the user input. An error will be thrown if no keywords are specified at all.
+
+2. The parsed user input is then fed into `RecipeMatchesKeywordPredicate` where a `Predicate`, p, is created. This
+predicate will subsequently be used as the filter to get all recipes that meet the user specified criteria.
+
+3. A new `FilterCommand` object will be created with the predicate and returned to the `LogicManager`.
+
+4. The `FilterCommand#execute(model)` method is executed and `Model#updateFilteredRecipeList(p)` is called. This tests
+every recipe in the database against the predicate, p, and updates the filtered recipe list with recipes that meet the
+user specified criteria.
+
+5. Once complete, this filtered recipe list is displayed to the user.
+
+Here is a sample sequence diagram that shows what happens when the user inputs `filter favourites t/20 ig/Pasta`:
+
+.Advanced filter sequence diagram
+image::AdvancedFilterSequenceDiagram.png[]
+
+This operation displays all recipes that 1) are marked as favourites, 2) take 20 minutes or less to prepare,
+and 3) contains pasta as an ingredient.
+
+==== Design Considerations
+===== Aspect: Consistency of user input format
+One concern we had while implementing this feature was the sheer number of commands and prefixes that our app had.
+Eventually, the current implementation was chosen because we didn't want to define a new format for `filter`
+keywords which might potentially confuse our users.
+
+* **Alternative 1 (current choice):** Uses the existing prefixes and format in the user input.
+** Pros: The existing `ArgumentTokenizer` and `ArgumentMultimap` classes already have capabilities to parse user input
+that is in a certain format. Thus, using the same format saves us time and effort in implementing our own parser. It
+also spares the user from having to remember multiple formats / keywords.
+** Cons: The user has to be familiar with the prefixes and other special keywords in order to use this feature to its
+fullest potential.
+
+* **Alternative 2:** Define new keywords that the user can use. These keywords could be "more english-like" as opposed
+to using shortened tags as prefixes.
+** Pros: Easy to remember these keywords since they are more english-like.
+** Cons: We must implement our own parser which is tedious. The user will also have to remember a new set of keywords
+on top of the existing prefixes. This is double work for the user.
+// end::advancedfilter[]
+
+// tag::planning[]
+=== Planning feature
 ==== Proposed Implementation
+The planning feature uses the `PlannedRecipeMap` to store a `Recipe` at a `Date`.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+Given below is a sequence diagram on how a recipe can be scheduled on a date.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th recipe in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new recipe. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the recipe was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+image::PlanningSequenceDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: How recipes are scheduled
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Scheduled recipes are saved in a separate data structure.
+** Pros: Scheduled recipes can be easily obtained and sorted.
+** Cons: May have performance issues in terms of memory usage if a large number of recipes are scheduled.
+
+* **Alternative 2:** Store the date that the scheduled recipe is scheduled on as another attribute to the Recipe class.
+** Pros: Easy to implement, no additional data structure added.
+** Cons: All scheduled recipes can not be easily seen and sorted.
+
+===== Aspect: Data structure to support the scheduled recipes
+
+* **Alternative 1 (current choice):** Use a tree map to store the scheduled recipes in a <Date, List<Recipe>> key-value pair.
+** Pros: Allows us to easily and intuitively access the list of recipes scheduled on a certain day.
+** Cons: Obtaining all the recipes scheduled across a period of time will not be very efficient.
+
+* **Alternative 2:** Use a List sorted by increasing time.
+** Pros: Easy to implement, uncomplicated data structure.
+** Cons: Hard to obtain the scheduled recipes on a certain date, as we do not know which index
+corresponds to the date we are interested in.
+// end::planning[]
+
+// tag::goals[]
+=== Goals feature
+==== Proposed Implementation
+
+==== Design Considerations
+
+===== Aspect: How goals are being tagged
+
+* **Alternative 1 (current choice):** System generates tags for each recipe based on food algorithm.
+** Pros: Higher accuracy and makes use of inputs of ingredients class.
+** Cons: Would require several criteria checks that may not be intuitive and would require the use of artificial intelligence for the highest accuracy.
+
+* **Alternative 2 :** User chooses from 4 given goals and user adds the tags to the recipes.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the recipe being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Is dependant on user's understanding and not universal understanding of what may be deemed healthy.
 
-===== Aspect: Data structure to support the undo/redo commands
+===== Aspect: How to determine the criteria for each goal
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+* **Alternative 1 (current choice):** Check by quantity
+** Pros: More accurate and can be modelled against ideal ratio of a healthy meal.
+** Cons: Harder to implement as we need to standardise the ingredient measurements, not as intuitive.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
+* **Alternative 2 :** Check by variety
+** Pros: Easy to implement.
+** Cons: Not as accurate as one grain of rice would still be counted as variety.
+// end::goals[]
 
 === Logging
 
@@ -417,7 +525,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. RecipeBook shows an error message.
 +
 Use case resumes at step 2.
 
@@ -472,6 +580,34 @@ Use case ends.
 +
 [none]
 ** 2a1. HealthyBaby shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Schedule a recipe
+
+*MSS*
+
+1.  User enters which recipe index and date they would like to schedule
+2.  HealthyBaby shows the recipe scheduled under the given date
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given recipe index is invalid.
++
+[none]
+** 2a1. HealthyBaby shows an error message.
++
+Use case ends.
+
+[none]
+* 2b. The given date is invalid.
++
+[none]
+** 2b1. HealthyBaby shows an error message.
 +
 Use case ends.
 

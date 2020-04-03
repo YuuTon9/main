@@ -5,17 +5,24 @@ skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
 package UI <<Rectangle>>{
-Interface Ui <<Interface>>
-Class "{abstract}\nUiPart" as UiPart
-Class UiManager
-Class MainWindow
-Class HelpWindow
-Class ResultDisplay
-Class RecipeListPanel
-Class RecipeCard
-Class StatusBarFooter
-Class CommandBox
-}
+ Interface Ui <<Interface>>
+ Class "{abstract}\nUiPart" as UiPart
+ Class UiManager
+ Class MainWindow
+ Class HelpWindow
+ Class ResultDisplay
+ Class StatusBarFooter
+ Class CommandBox
+ Class MainTabPanel
+ package {
+ Class RecipeListPanel
+ Class RecipeCard
+ Class PlanningListPanel
+ Class PlanningCard
+ Class GoalsListPanel
+ Class GoalsCard
+ }
+ }
 
 package Model <<Rectangle>> {
 Class HiddenModel #FFFFFF
@@ -33,21 +40,29 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> RecipeListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> MainTabPanel
 
+MainTabPanel *-down-> RecipeListPanel
 RecipeListPanel -down-> RecipeCard
+MainTabPanel *-down-> PlanningListPanel
+PlanningListPanel -down-> PlanningCard
+MainTabPanel *-down-> GoalsListPanel
+GoalsListPanel -down-> GoalsCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 RecipeListPanel --|> UiPart
-RecipeCard --|> UiPart
+PlanningListPanel --|> UiPart
+GoalsListPanel  --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-RecipeCard ..> Model
+RecipeCard .down.> Model
+PlanningCard .down.> Model
+GoalsCard .down.> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
